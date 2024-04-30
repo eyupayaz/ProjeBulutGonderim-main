@@ -13,6 +13,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\IsatamaController;
 
 
 
@@ -114,4 +115,14 @@ Route::get('/admin/iletisim/delete/{mesaj_id}', [MesajgonderController::class, '
     Route::post('update/{user_id}', [UsersController::class, 'update'])->name('admin_user_update');
     Route::get('show', [UsersController::class, 'show'])->name('admin_user_show');
 
+//İs Atama
 
+Route::get('/admin/isatama/delete/{id}', [IsatamaController::class, 'destroy'])->name('admin_isatama_delete');
+
+Route::get('/admin', [HomeController::class, 'index']);
+
+    Route::get('/admin/isatama', [IsatamaController::class, 'index'])->name('admin_isatama');
+    Route::post('isatama/create', [IsatamaController::class, 'create'])->name('admin_isatama_create');
+    Route::get('admin/isatama/edit/{id}', [IsatamaController::class, 'edit'])->name('admin_isatama_edit');
+    Route::post('update/{id}', [IsatamaController::class, 'update'])->name('admin_isatama_update');
+    Route::get('/admin/isatama_add', [IsatamaController::class, 'add'])->name('admin_isatama_add');
