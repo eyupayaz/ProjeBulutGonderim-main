@@ -18,9 +18,9 @@ class CalendarController extends Controller
         }
 
         // Veritabanından islerim tablosundaki verileri $email'e göre filtreleyerek çekme
-    $isler = DB::table('islerim')
+    $isler = DB::table('todos')
             ->where('user_name', $email) // 'user_name' sütununu kontrol edin
-            ->orderBy('is_date', 'asc')
+            ->orderBy('time', 'asc')
             ->get();
 
 

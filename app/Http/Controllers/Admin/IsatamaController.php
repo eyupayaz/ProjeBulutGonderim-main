@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Todo;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class IsatamaController extends Controller
 {
@@ -16,6 +16,7 @@ class IsatamaController extends Controller
         return view('admin.isatama', ['datalist'=>$datalist]);
     }
 
+
     public function destroy($id)
 {
     DB::table('todos')->where('id', $id)->delete();
@@ -23,7 +24,7 @@ class IsatamaController extends Controller
 }
 
 
-    public function edit(isatama $isatama, $id)
+    public function edit($id)
     {
         $data = Todo::find($id);
         $datalist = DB::table('todos')->get()->where('id',0);
@@ -41,7 +42,7 @@ class IsatamaController extends Controller
         $data->user_name = $request->input('user_name');
         $data->work_name = $request->input('work_name');
         $data->time= $request->input('time');
-        $data->status = $request->input('status');
+        
 
         // Kullanıcıyı kaydet
         $data->save();
@@ -65,13 +66,13 @@ class IsatamaController extends Controller
     public function create(Request $request)
   {
       DB::table('todos')->insert([
-          'id' => $request->input('id'),
           'user_name' => $request->input('user_name'),
           'work_name' => $request->input('work_name'),
           'time' => $request->input('time'),
-          'status' => $request->input('status'),
-
       ]); 
       return redirect()->route('admin_isatama');
   }
+
+ 
+
 }

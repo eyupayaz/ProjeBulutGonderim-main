@@ -41,4 +41,10 @@ class MesajgonderController extends Controller
         $datalist = Mesajgonder::all();
         return view('admin.iletisim', ['datalist'=>$datalist]);
     }
+
+    // public function goster()
+    #{
+    #   $goster= Mesajgonder::select('user_name', 'message_date')->get();
+    #  return view('mesaj.goster', ['goster'=>$goster]);
+    #} 
 }

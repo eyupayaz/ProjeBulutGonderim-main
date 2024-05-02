@@ -14,6 +14,7 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\IsatamaController;
+use App\Http\Controllers\admin\atamayapController;
 
 
 
@@ -104,6 +105,10 @@ Route::post('iletisim/create', [MesajgonderController::class, 'create'])->name('
 Route::get('/admin/iletisim/delete/{mesaj_id}', [MesajgonderController::class, 'destroy'])->name('admin_iletisim_delete');
 
 
+//Route::post('/admin/goster', [MesajgonderController::class, 'goster'])->name('admin_goster');
+
+
+
 //users
 
     Route::get('/admin', [HomeController::class, 'index']);
@@ -111,7 +116,7 @@ Route::get('/admin/iletisim/delete/{mesaj_id}', [MesajgonderController::class, '
     Route::get('/admin/user', [UsersController::class, 'index'])->name('admin_user');
     Route::post('user/create', [UsersController::class, 'create'])->name('admin_user_create');
     Route::get('/admin/user/delete/{user_id}', [UsersController::class, 'destroy'])->name('admin_user_delete');
-    Route::get('edit/{user_id}', [UsersController::class, 'edit'])->name('admin_user_edit');
+    Route::get('admin/edit/{user_id}', [UsersController::class, 'edit'])->name('admin_user_edit');
     Route::post('update/{user_id}', [UsersController::class, 'update'])->name('admin_user_update');
     Route::get('show', [UsersController::class, 'show'])->name('admin_user_show');
 
@@ -122,7 +127,10 @@ Route::get('/admin/isatama/delete/{id}', [IsatamaController::class, 'destroy'])-
 Route::get('/admin', [HomeController::class, 'index']);
 
     Route::get('/admin/isatama', [IsatamaController::class, 'index'])->name('admin_isatama');
-    Route::post('isatama/create', [IsatamaController::class, 'create'])->name('admin_isatama_create');
+    Route::post('/admin/isatama/create', [IsatamaController::class, 'create'])->name('admin_isatama_create');
     Route::get('admin/isatama/edit/{id}', [IsatamaController::class, 'edit'])->name('admin_isatama_edit');
-    Route::post('update/{id}', [IsatamaController::class, 'update'])->name('admin_isatama_update');
+    Route::post('admin/update/{id}', [IsatamaController::class, 'update'])->name('admin_isatama_update');
     Route::get('/admin/isatama_add', [IsatamaController::class, 'add'])->name('admin_isatama_add');
+
+
+  

@@ -85,22 +85,22 @@
             </div>
         </div>
     </section>
-<div class="row w-100">
-    <!-- ***** Our Classes Start ***** -->
-	   @foreach($isler as $is)
-	   <div class="card mt-3 ml-5" style="width: 18rem;">
+    <div class="row w-100">
+    <!--  Our Classes Start  -->
+       @foreach($isler as $is)
+       <div class="card mt-3 ml-5" style="width: 18rem;">
         <div class="card-header bg-primary">
-            İş Tarihi ({{ $is->is_name }})
+            İş Tarihi ({{ $is->work_name }})
         </div>
 
         <ul class="list-group list-group-flush">
 
-            <li class="list-group-item">{{ $is->is_date }}</li>
+            <li class="list-group-item">{{ $is->time }}</li>
 
         </ul>
     </div>
-	   @endforeach
-    <!-- ***** Call to Action End ***** -->
+       @endforeach
+    <!--  Call to Action End  -->
 </div>
     <!-- ***** Footer Start ***** -->
    

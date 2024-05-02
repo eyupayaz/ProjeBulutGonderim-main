@@ -51,6 +51,7 @@ return view('atananisler', ['assignedWorks' => $assignedWorks, 'listele' => $lis
             'user_name' => $userName,
             'work_name' => $workName,
             'time' => $time,
+            'status' => 0,
         ]);
 
         // Todo tablosundaki ilgili işin status değerini güncelle

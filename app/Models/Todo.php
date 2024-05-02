@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Todo extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id';
-
 
     protected $fillable = [
         'user_name',
@@ -18,4 +16,5 @@ class Todo extends Model
         'status',
     ];
 
+    public $timestamps = false; // Zaman damgalarını devre dışı bırakır
 }

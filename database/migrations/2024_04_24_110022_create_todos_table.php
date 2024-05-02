@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTodosTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('todos', function (Blueprint $table) {
@@ -18,15 +14,10 @@ class CreateTodosTable extends Migration
             $table->string('user_name', 60);
             $table->string('work_name', 60);
             $table->integer('time');
-            $table->boolean('status')->default(0); // status sütunu ekleniyor, varsayılan değeri 0
+            $table->boolean('status')->default(0); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('todos');

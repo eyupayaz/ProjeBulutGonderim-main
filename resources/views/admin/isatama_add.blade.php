@@ -22,12 +22,9 @@
                                                     <div class="card-body">
                                                         <form action="{{route('admin_isatama_create')}}" method="post" >
                                                             @csrf
+                                                            
                                                             <div class="form-group">
-                                                                <label>id</label>
-                                                                <input id="input" type="text" name="id" data-parsley-trigger="change" required=""  autocomplete="off" class="form-control">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Kullanıcı Adı</label>
+                                                            <label>Kullanıcı Adı</label>
                                                                 <input id="input" type="text" name="user_name" data-parsley-trigger="change" required=""  autocomplete="off" class="form-control">
                                                             </div>
                                                             <div class="form-group">
@@ -36,15 +33,9 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Süre</label>
-                                                                <input id="input" type="text" name="time" data-parsley-trigger="change" required=""  autocomplete="off" class="form-control">
+                                                                <input id="input" type="date" name="time" data-parsley-trigger="change" required=""  autocomplete="off" class="form-control">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label>Durum</label>
-                                                                <select class="form-control select2-close" name="status">
-                                                                <option  selected="selected">0</option>
-                                                                <option>1</option>
-                                                                </select>
-                                                            </div>
+                                                            
                                                                 <div class="col-sm-12 pl-0">
                                                                     <p class="text-right">
                                                                         <button type="submit" class="btn btn-space btn-primary">Oluştur</button>

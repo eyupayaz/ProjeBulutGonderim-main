@@ -112,13 +112,19 @@
 </div>
 <ul class="list-group list-group-flush">
   @foreach($assignedWorks as $work)
-    <li class="list-group-item {{ $work->status == 1 ? 'text-decoration-line-through' : '' }}">
+  @php
+         $jobDate = new DateTime($work->time);
+         $today = new DateTime();
+         $difference = $today->diff($jobDate);
+        $daysDifference = $difference->format('%a');
+        @endphp
+        <li class="list-group-item {{ $work->status == 1 ? 'text-decoration-line-through' : '' }}">
         @if ($work->status == 1)
             <del>{{ $work->work_name }}</del>
         @else
             {{ $work->work_name }}
         @endif
-        ({{ $work->time }} Saat) 
+        ({{ $daysDifference }} Gün) 
 
         <form action="{{ route('start.work') }}" method="POST" style="display: inline;">
             @csrf
@@ -127,6 +133,7 @@
             <button type="submit" class="btn btn-primary" style="float:right; background-color:blue; border-color:blue;">Start</button>
         </form>
     </li>
+
 @endforeach
 
 </ul>
@@ -134,37 +141,46 @@
 </div>
 			</div>
 			<div class="col-4">
-			<div class="card">
+            <div class="card">
   <div class="card-header bg-info">
     In Progress
   </div>
   @foreach($listele as $list)
   <ul class="list-group list-group-flush">
     <li class="list-group-item  {{ $list->status == 1 ? 'text-decoration-line-through' : '' }}"> 
-	    @if ($list->status == 1)
+
+        @php
+         $jobDate = new DateTime($list->time);
+         $today = new DateTime();
+         $difference = $today->diff($jobDate);
+        $daysDifference = $difference->format('%a');
+        @endphp
+        @if ($list->status == 1)
             <del>{{ $list->work_name }}</del>
         @else
             {{ $list->work_name }}
         @endif
-        ({{ $list->time }} Saat) 
 
-	
-	
-	
-	
-	
+        ({{ $daysDifference }} Gün) 
+
+
+
+
+
             <form action="{{ route('finish.work') }}" method="POST" style="display: inline;">
                 @csrf
                 <input type="hidden" name="work_name" value="{{ $list->work_name }}">
-                <input type="hidden" name="time" value="{{ $list->time }}">
+                <input type="hidden" name="time" value="{{ $daysDifference }}">
                 <button type="submit" class="btn btn-info" style="float:right;">Finish</button>
             </form>
 
 
-	</li>
- 	    @endforeach
+    </li>
+         @endforeach
   </ul>
 </div>
+
+
 			</div>
 			<div class="col-4">
 			
@@ -182,21 +198,7 @@
 			</div>
 			
 			</div>
-    <!--
-   <table>
-        <thead>
-            <tr>
-                <th>İş Adı</th>
-                <th>Zaman</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-               <td>{{ $work->time }}</td>
-            </tr>
-        </tbody>
-    </table>-->
+    
 
             <br>
              
