@@ -199,11 +199,11 @@ body {
 				</div>
 				<div class="login__field">
 					<i class="login__icon fas fa-lock"></i>
-					<input type="password" class="login__input" name="password" placeholder="Password">
+					<input type="password" class="login__input" name="password" placeholder="Şifre">
 				</div>
-				<center data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor:pointer;">Register</center>	
+				<center data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor:pointer;">KAYIT OL</center>	
 				<button class="button login__submit">
-					<span class="button__text">Log In Now</span>
+					<span class="button__text">GİRİŞ YAP</span>
 					<i class="button__icon fas fa-chevron-right"></i>
 				</button>	
 			
@@ -238,7 +238,7 @@ body {
   <div class="modal-dialog">
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Kayıt Ol</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -246,22 +246,22 @@ body {
 
             @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <label for="exampleInputEmail1" class="form-label">Email</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
                 
             </div>
             <div class="mb-3">
-                <label for="exampleInputName" class="form-label">User Name</label>
+                <label for="exampleInputName" class="form-label">Kullanıcı Adı</label>
                 <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" name="user_name">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Şifre</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password">
             </div>
     </div>
     <div class="modal-footer">
    
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
         </form>
     </div>
 </div>

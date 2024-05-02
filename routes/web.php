@@ -15,7 +15,7 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\IsatamaController;
 use App\Http\Controllers\admin\atamayapController;
-
+use App\Http\Middleware\CheckRole;
 
 
 /*
@@ -133,4 +133,13 @@ Route::get('/admin', [HomeController::class, 'index']);
     Route::get('/admin/isatama_add', [IsatamaController::class, 'add'])->name('admin_isatama_add');
 
 
-  
+
+    Route::middleware(['role:1'])->group(function () {
+        // Yalnızca adminlerin erişebileceği sayfalar
+        Route::get('/admin', [AuthController::class, 'login']);
+    });
+    
+   
+
+   
+   

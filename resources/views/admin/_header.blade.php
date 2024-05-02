@@ -39,17 +39,34 @@
                 </li>
                 
                 <li class="nav-item dropdown nav-user">
-                    <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                    <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/ben.png" alt="" class="user-avatar-md rounded-circle"></a>
                     <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                         <div class="nav-user-info">
                             <h5 class="mb-0 text-white nav-user-name">
-                                John Abraham
+                            @if(session()->has('email'))
+                         <h3 style="color:white;">{{ session('email') }}</h3>
+                            @endif
                             </h5>
-                            <span class="status"></span><span class="ml-2">Available</span>
+                            <span class="status"></span><span class="ml-2">Mevcut</span>
                         </div>
-                        <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Hesap</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Ayarlar</a>
+                        <a class="dropdown-item" href="#" id="logout-link"><i class="fas fa-power-off mr-2"></i>Çıkış Yap</a>
+
+                        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <script>
+                            document.getElementById('logout-link').addEventListener('click', function(event) {
+                                event.preventDefault(); // Sayfanın yeniden yüklenmesini engellemek için
+
+                                document.getElementById('logout-form').submit(); // Formu gönder
+                            });
+                        </script>
+
+
                     </div>
                 </li>
             </ul>

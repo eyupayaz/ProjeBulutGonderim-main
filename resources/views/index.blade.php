@@ -42,14 +42,14 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="/index" class="logo">İşim Cepte </a>
+                        <a href="/index" class="logo">İŞİM Cepte </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
   <ul class="nav">
-    <li><a href="#"  class="active">Anasayfa</a></li>
-    <li><a href="/iletisim">İletişim</a></li>
+    <li><a href="/index"  class="active">Anasayfa</a></li>
+    <li><a href="/iletisim">İLETİŞİM</a></li>
     <li><a href="atananisler">Atanan İşler</a></li>
-    <li><a href="/islerisiralama">İşleri Sıralama</a></li>
+    <li><a href="/islerisiralama">İŞLERİ Sıralama</a></li>
         <li>
             <a href="#" id="logout-link">Çıkış</a>
         </li>

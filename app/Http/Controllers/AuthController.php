@@ -12,25 +12,32 @@ class AuthController extends Controller
         return view('giris');
     }
 
- public function login(Request $request)
-{
-    $email = $request->input('email');
-    $password = $request->input('password');
-
-    // Kullanıcıyı veritabanından sorgula
-    $user = User::where('email', $email)->first();
-
-    if ($user && Hash::check($password, $user->password)) {
-        // Giriş başarılı, kullanıcıyı oturuma al
-        session()->put('email', $email);
-
-        // Kullanıcıyı /index sayfasına yönlendir
-        return view('index', ['email' => $email]);
-    } else {
-        // Giriş başarısız
-        return redirect('/')->with('error', 'E-posta veya şifre hatalı');
+    public function login(Request $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+    
+        // Kullanıcıyı veritabanından sorgula
+        $user = User::where('email', $email)->first();
+    
+        if ($user && Hash::check($password, $user->password)) {
+            // Giriş başarılı, kullanıcıyı oturuma al
+            session()->put('email', $email);
+    
+            // Rol kontrolü yap
+            if ($user->role === 1) {
+                // Admin ise admin sayfasına yönlendir
+                return view('/admin/index');
+            } else {
+                // Admin değil ise index sayfasına yönlendir
+                return view('index', ['email' => $email]);
+            }
+        } else {
+            // Giriş başarısız
+            return redirect('/')->with('error', 'E-posta veya şifre hatalı');
+        }
     }
-}
+    
 
 
 	public function logout()
@@ -38,23 +45,24 @@ class AuthController extends Controller
     auth()->logout();
     return redirect('/');
 }
- public function register(Request $request)
-    {
-        // Formdan gelen verileri al
-        $userData = $request->only(['email', 'user_name', 'password']);
+public function register(Request $request)
+{
+    // Formdan gelen verileri al
+    $userData = $request->only(['email', 'user_name', 'password']);
 
-   $existingUser = User::where('email', $userData['email'])->first();
+    $existingUser = User::where('email', $userData['email'])->first();
 
     // Eğer kullanıcı zaten varsa hata döndür
     if ($existingUser) {
         return redirect()->back()->with('alert', 'Bu email adresi zaten kullanılıyor.');
     }
         // Veritabanına ekle
-        $user = new User;
-        $user->email = $userData['email'];
-        $user->user_name = $userData['user_name'];
-        $user->password = bcrypt($userData['password']); // Şifreyi hash'le
-        $user->save();
+    $user = new User;
+    $user->email = $userData['email'];
+    $user->user_name = $userData['user_name'];
+    $user->password = bcrypt($userData['password']); // Şifreyi hash'le
+    $user->role = 0; // Varsayılan olarak role değerini 0 olarak ayarla
+    $user->save();
 
         // Başarılı bir şekilde kaydedildiğine dair bir mesaj döndür
         return redirect()->back()->with('alert', 'Üye başarıyla kaydedildi.');

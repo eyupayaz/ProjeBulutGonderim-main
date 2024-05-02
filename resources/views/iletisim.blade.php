@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
-    <title>İletisim</title>
+    <title>İşim Cepte</title>
 
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 
@@ -36,20 +36,20 @@
     
     
     <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
+    <header class="header-area header-sticky">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">İşim Cepte </a>
+                        <a href="/index" class="logo">İŞİM Cepte </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
   <ul class="nav">
-    <li><a href="/index">Anasayfa</a></li>
-    <li><a href="#" class="active">İletişim</a></li>
-    <li><a href="/atananisler">Atanan İşler</a></li>
-    <li><a href="/islerisiralama">İşleri Sıralama</a></li>
+    <li><a href="/index"  class="active">Anasayfa</a></li>
+    <li><a href="/iletisim">İLETİŞİM</a></li>
+    <li><a href="atananisler">Atanan İşler</a></li>
+    <li><a href="/islerisiralama">İŞLERİ Sıralama</a></li>
         <li>
             <a href="#" id="logout-link">Çıkış</a>
         </li>
@@ -79,6 +79,7 @@
             </div>
         </div>
     </header>
+
     <!-- ***** Header Area End ***** -->
 
     <section class="section section-bg" id="call-to-action" style="background-image: url(assets/images/send.jpg)">
@@ -88,7 +89,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Geri Bildirim Yapabilirsiniz</h2>
+                        <h2>GERİ BİLDİRİM YAPABİLİRSİNİZ</h2>
           
                     </div>
                 </div>
@@ -127,12 +128,12 @@
                         @if(session()->has('email'))
     <p >{{ session('email') }}</p>
 @endif
-						<p>
-		
-                        <p> +1 333 4040 5566</p>
+						
+		                
+                        <p>GSM: 0324 251 54 45</p>
 
                         <label>Address</label>
-                        <p> 212 Barrington Court New York, ABC 10001 United States of America</p>
+                        <p>Kocaeli Üniversitesi Teknoloji Fakültesi İzmit/Kocaeli</p>
                     </div>
 
                     <br>
@@ -147,8 +148,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <p>
-                        Copyright © 2020 Company Name
-                        - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                        Copyright © 2024 Bu Proje <a href = "https://www.linkedin.com/in/ey%C3%BCp-ayaz-577b64301/"> Eyüp Ayaz </a> ve 
+                        <a href="https://www.linkedin.com/in/y%C4%B1lmaz-%C3%B6zkan-85b7a1223/">Yılmaz Özkan</a> tarafından Geliştirilmiştir.
                     </p>
                 </div>
             </div>
