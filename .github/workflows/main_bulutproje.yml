@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy PHP app to Azure Web App - BulutProje
+name: Build and deploy PHP app to Azure Web App - bulutproje
 
 on:
   push:
@@ -46,6 +46,8 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -55,12 +57,19 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A46E4D7493CD4F77BAF54D421A18C2D0 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_28519771EDD243F49DCAF5D1751E47F6 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_61408F93B71B44A09B6A89ECB9D2F00D }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'BulutProje'
+          app-name: 'bulutproje'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_31DD372D104C45B0BB0D621445C18CD3 }}
           package: .
+          
