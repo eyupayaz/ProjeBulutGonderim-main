@@ -1,37 +1,33 @@
-- isim: 'gcr.io/cloud-builders/docker'
-  args: [
-    'inşa', 
-    '-t', 
-    'gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }', 
-    '.'
+adımlar:
+  - isim: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}', '.']
+  - isim: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}']
+  - isim: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'beta', 
+      'run', 
+      'deploy', 
+      '--allow-unauthenticated', 
+      '${_CLOUD_RUN_SERVICE}', 
+      '--image', 
+      'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}', 
+      '--region', 
+      'us-central1', 
+      '--platform', 
+      'managed', 
+      '--memory', 
+      '256Mi', 
+      '--update-env-vars', 
+      'APP_DEBUG=${_APP_DEBUG}'
     ]
-    - isim: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io / $ PROJECT_ID / $ { _CLOUD_RUN_SERVICE }']
-  # Konteyner görüntüsünü Cloud Run'a dağıtın
-- isim: 'gcr.io/cloud-builders/gcloud'
-  args: [
-    'beta',
-    'koş',
-    'dağıtmak',
-    '- izin ver-kimlik doğrulanmamış',
-    '$ { _CLOUD_RUN_SERVICE }',
-    '- image',
-    'gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }',
-    '- bölge',
-    'us-central1',
-    '- platform',
-    'yönetilen',
-    '- bellek',
-    '256Mi',
-    '- update-env-vars',
-    'APP_DEBUG = $ { _APP_DEBUG }'
-    ]
+
 görüntüler:
-- gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }
+  - 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}'
 
 seçenekler:
-    ikame_seçimi: 'ALLOW_LOOSE'
+  ikame_seçimi: 'ALLOW_LOOSE'
 
 ikameler:
-    _APP_DEBUG: 'doğru'
+  _APP_DEBUG: 'doğru'
 
