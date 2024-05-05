@@ -1,17 +1,32 @@
-$ docker run -ti -e CLOUDSDK_CONFIG=/config/mygcloud \
-                 -v `pwd`/mygcloud:/config/mygcloud \
-                 -v `pwd`:/certs  google/cloud-sdk:alpine /bin/bash
+#Görüntüyü temel ubuntu sistemi ve php ile birlikte uzantılar yükleyin.
+Sandymadaan'dan / php7.3-docker'dan: 0.4
 
-bash-4.4# gcloud config list
-[auth]
-credential_file_override = /certs/svc_account.json
+# Yerel kodu kapsayıcı görüntüsüne kopyalayın.
+KOPYA. / Var / www / html/
 
-bash-4.4# head -10  /certs/svc_account.json
-{
-  "type": "service_account",
-  "project_id": "project_id1",
-....
+# Apache2'yi yeniden başlat
+RUN hizmeti apache2 yeniden başlat
 
-bash-4.4# gcloud projects list
-PROJECT_ID           NAME         PROJECT_NUMBER
-project_id1          GCPAppID     1071284184432
+# Apache yapılandırma dosyalarında PORT ortam değişkenini kullanın.
+RUN sed -i / 80 / $ { PORT } / g '/ etc / apache2 / sites-available / 000-default.conf /etc/apache2/ports.conf
+
+
+# htaccess dosyalarını yetkilendirme
+RUN sed -i 's / AllowOverride Yok / AllowOverride All /' / etc / apache2 / apache2.conf
+
+RUN sed -ri -e 's!/Var / www / html!/var / www / html / public!g '/ etc / apache2 / sites-available / * .conf
+RUN sed -ri -e 's!/Var / www/!/var / www / html / public!g '/ etc / apache2 / apache2.conf / etc / apache2 / conf-available / * .conf
+
+KOPYA .env.example .env
+
+ARG GOOGLE_CLOUD_PROJECT
+
+RUN sed -ri -e / project_id / $ { GOOGLE_CLOUD_PROJECT } / g '.env
+
+# Besteci paketlerini yükle
+RUN besteci kurulumu -n --prefer-dist
+
+RUN chown -R www-data: www-veri depolama bootstrap
+RUN chmod -R 777 depolama bootstrap
+
+RUN php artisan tuşu: oluştur
