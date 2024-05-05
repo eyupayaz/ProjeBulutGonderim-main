@@ -1,33 +1,33 @@
-adımlar:
-  - isim: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}', '.']
-  - isim: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}']
-  - isim: 'gcr.io/cloud-builders/gcloud'
-    args: [
-      'beta', 
-      'run', 
-      'deploy', 
-      '--allow-unauthenticated', 
-      '${_CLOUD_RUN_SERVICE}', 
-      '--image', 
-      'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}', 
-      '--region', 
-      'us-central1', 
-      '--platform', 
-      'managed', 
-      '--memory', 
-      '256Mi', 
-      '--update-env-vars', 
-      'APP_DEBUG=${_APP_DEBUG}'
-    ]
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: 
+      - '-c'
+      - |
+        docker build -t gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE} .
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker push gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud beta run deploy ${_CLOUD_RUN_SERVICE} \
+        --allow-unauthenticated \
+        --image gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE} \
+        --region us-central1 \
+        --platform managed \
+        --memory 256Mi \
+        --update-env-vars APP_DEBUG=${_APP_DEBUG}
+images:
+  - gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}
+options:
+  substitution_option: 'ALLOW_LOOSE'
+substitutions:
+  _APP_DEBUG: 'true'
 
-görüntüler:
-  - 'gcr.io/$PROJECT_ID/${_CLOUD_RUN_SERVICE}'
-
-seçenekler:
-  ikame_seçimi: 'ALLOW_LOOSE'
-
-ikameler:
-  _APP_DEBUG: 'doğru'
 
