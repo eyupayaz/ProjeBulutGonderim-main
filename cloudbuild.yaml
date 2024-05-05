@@ -1,12 +1,37 @@
-steps:
-    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-        - '-c'
-        - |
-          gcloud config set app/cloud_build_timeout 3600 \
-          && gcloud app deploy -q --promote -v=$BUILD_ID \
-          --project=$PROJECT_ID
+- isim: 'gcr.io/cloud-builders/docker'
+  args: [
+    'inşa', 
+    '-t', 
+    'gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }', 
+    '.'
+    ]
+    - isim: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io / $ PROJECT_ID / $ { _CLOUD_RUN_SERVICE }']
+  # Konteyner görüntüsünü Cloud Run'a dağıtın
+- isim: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'beta',
+    'koş',
+    'dağıtmak',
+    '- izin ver-kimlik doğrulanmamış',
+    '$ { _CLOUD_RUN_SERVICE }',
+    '- image',
+    'gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }',
+    '- bölge',
+    'us-central1',
+    '- platform',
+    'yönetilen',
+    '- bellek',
+    '256Mi',
+    '- update-env-vars',
+    'APP_DEBUG = $ { _APP_DEBUG }'
+    ]
+görüntüler:
+- gcr.io/$ PROJECT_ID/$ { _CLOUD_RUN_SERVICE }
 
-timeout: '3600s'
+seçenekler:
+    ikame_seçimi: 'ALLOW_LOOSE'
+
+ikameler:
+    _APP_DEBUG: 'doğru'
 
