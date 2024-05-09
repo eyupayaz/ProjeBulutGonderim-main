@@ -66,8 +66,9 @@ COPY supervisor /etc/supervisor
 COPY php/zzz-app.conf /usr/local/etc/php-fpm.d/zzz-app.conf
 COPY php/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/nginx-site.conf /etc/nginx/sites-available/nginx-site.conf
+COPY nginx-site.conf /etc/nginx/sites-available/nginx-site.conf
 RUN ln -s /etc/nginx/sites-available/nginx-site.conf /etc/nginx/conf.d/nginx-site.conf
+
 
 COPY wait-for-it.sh /usr/local/bin/wait-for-it
 RUN chmod o+x /usr/local/bin/wait-for-it
