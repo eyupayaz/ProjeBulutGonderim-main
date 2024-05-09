@@ -1,32 +1,53 @@
-#Görüntüyü temel ubuntu sistemi ve php ile birlikte uzantılar yükleyin.
-Sandymadaan'dan / php7.3-docker'dan: 0.4
+#
+#--------------------------------------------------------------------------
+# Image Setup
+#--------------------------------------------------------------------------
+#
 
-# Yerel kodu kapsayıcı görüntüsüne kopyalayın.
-KOPYA. / Var / www / html/
+FROM php:8.0-fpm
 
-# Apache2'yi yeniden başlat
-RUN hizmeti apache2 yeniden başlat
+# Set Environment Variables
+ENV DEBIAN_FRONTEND noninteractive
 
-# Apache yapılandırma dosyalarında PORT ortam değişkenini kullanın.
-RUN sed -i / 80 / $ { PORT } / g '/ etc / apache2 / sites-available / 000-default.conf /etc/apache2/ports.conf
+#
+#--------------------------------------------------------------------------
+# Software's Installation
+#--------------------------------------------------------------------------
+#
+# Installing tools and PHP extentions using "apt", "docker-php", "pecl",
+#
 
+# Install "curl", "libmemcached-dev", "libpq-dev", "libjpeg-dev",
+#         "libpng-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev",
+RUN set -eux; \
+    apt-get update; \
+    apt-get upgrade -y; \
+    apt-get install -y --no-install-recommends \
+            curl \
+            libmemcached-dev \
+            libz-dev \
+            libpq-dev \
+            libjpeg-dev \
+            libpng-dev \
+            libfreetype6-dev \
+            libssl-dev \
+            libwebp-dev \
+            libxpm-dev \
+            libmcrypt-dev \
+            libonig-dev; \
+    rm -rf /var/lib/apt/lists/*
 
-# htaccess dosyalarını yetkilendirme
-RUN sed -i 's / AllowOverride Yok / AllowOverride All /' / etc / apache2 / apache2.conf
-
-RUN sed -ri -e 's!/Var / www / html!/var / www / html / public!g '/ etc / apache2 / sites-available / * .conf
-RUN sed -ri -e 's!/Var / www/!/var / www / html / public!g '/ etc / apache2 / apache2.conf / etc / apache2 / conf-available / * .conf
-
-KOPYA .env.example .env
-
-ARG GOOGLE_CLOUD_PROJECT
-
-RUN sed -ri -e / project_id / $ { GOOGLE_CLOUD_PROJECT } / g '.env
-
-# Besteci paketlerini yükle
-RUN besteci kurulumu -n --prefer-dist
-
-RUN chown -R www-data: www-veri depolama bootstrap
-RUN chmod -R 777 depolama bootstrap
-
-RUN php artisan tuşu: oluştur
+RUN set -eux; \
+    # Install the PHP pdo_mysql extention
+    docker-php-ext-install pdo_mysql; \
+    # Install the PHP pdo_pgsql extention
+    docker-php-ext-install pdo_pgsql; \
+    # Install the PHP gd library
+    docker-php-ext-configure gd \
+            --prefix=/usr \
+            --with-jpeg \
+            --with-webp \
+            --with-xpm \
+            --with-freetype; \
+    docker-php-ext-install gd; \
+    php -r 'var_dump(gd_info());'
